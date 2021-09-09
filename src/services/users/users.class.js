@@ -1,19 +1,19 @@
 // This is the database adapter service class
-const { Service } = require("feathers-nedb");
+const { Service } = require('feathers-nedb');
 // We need this to create the MD5 hash
-const crypto = require("crypto");
+const crypto = require('crypto');
 
 // The Gravatar image service
-const gravatarUrl = "https://s.gravatar.com/avatar";
+const gravatarUrl = 'https://s.gravatar.com/avatar';
 // The size query. Our chat needs 60px images
-const query = "s=60";
+const query = 's=60';
 // Returns the Gravatar image for an email
 const getGravatar = (email) => {
   // Gravatar uses MD5 hashes from an email address (all lowercase) to get the image
   const hash = crypto
-    .createHash("md5")
+    .createHash('md5')
     .update(email.toLowerCase())
-    .digest("hex");
+    .digest('hex');
 
   // Return the full avatar URL
   return `${gravatarUrl}/${hash}?${query}`;

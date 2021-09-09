@@ -10,7 +10,7 @@ module.exports = (options = {}) => {
     const addUser = async (message) => {
       // Get the user based on their id, pass the `params` along so
       // that we get a safe version of the user data
-      const user = await app.service("users").get(message.userId, params);
+      const user = await app.service('users').get(message.userId, params);
 
       // Merge the message content to include the `user` object
       return {
@@ -20,7 +20,7 @@ module.exports = (options = {}) => {
     };
 
     // In a find method we need to process the entire page
-    if (method === "find") {
+    if (method === 'find') {
       // Map all data to include the `user` information
       context.result.data = await Promise.all(result.data.map(addUser));
     } else {
