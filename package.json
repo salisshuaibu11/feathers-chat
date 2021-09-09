@@ -24,11 +24,11 @@
     "npm": ">= 3.0.0"
   },
   "scripts": {
-    "test": "npm run lint && npm run mocha",
-    "lint": "eslint src/. test/. --config .eslintrc.json --fix",
+    "test": "npm run eslint && npm run mocha",
+    "eslint": "eslint src/. test/. --config .eslintrc.json --fix",
     "dev": "nodemon src/",
     "start": "node src/",
-    "mocha": "mocha test/ --recursive --exit"
+    "mocha": "npm run clean && NODE_ENV=test mocha test/ --recursive --exit"
   },
   "standard": {
     "env": [
@@ -58,6 +58,7 @@
     "axios": "^0.21.4",
     "eslint": "^7.32.0",
     "mocha": "^8.4.0",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "shx": "^0.3.3"
   }
 }
