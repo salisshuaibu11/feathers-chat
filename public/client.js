@@ -192,6 +192,16 @@ const showChat = async () => {
   users.data.forEach(addUser);
 };
 
+// Retrieve email/password object from the login/signup page
+const getCredentials = () => {
+  const user = {
+    email: document.querySelector('[name="email"]').value,
+    password: document.querySelector('[name="password"]').value,
+  };
+
+  return user;
+};
+
 const main = async () => {
   const auth = await login();
 
