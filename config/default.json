@@ -10,10 +10,14 @@
     "entity": "user",
     "service": "users",
     "secret": "MXg+c6dzYwH0QkpY8NfXaBWiQ5w=",
-    "authStrategies": [
-      "jwt",
-      "local"
-    ],
+    "oauth": {
+      "redirect": "/",
+      "github": {
+        "key": "9573690167089b33e27d",
+        "secret": "fdc0ca4e90b58f2750fd35a6c5018f0da886ad6c"
+      }
+    },
+    "authStrategies": ["jwt", "local"],
     "jwtOptions": {
       "header": {
         "typ": "access"
