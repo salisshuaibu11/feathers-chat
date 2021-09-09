@@ -224,6 +224,64 @@ const login = async (credentials) => {
   }
 };
 
+const addEventListener = (selector, event, handler) => {
+  document.addEventListener(event, async (ev) => {
+    if (ev.target.closest(selector)) {
+      handler(ev);
+    }
+  });
+};
+
+// "Signup and login" button click handler
+addEventListener("#signup", "click", async () => {
+  // For signup, create a new user and then log them in
+  const credentials = getCredentials();
+
+  // First create the user
+  await client.service("users").create(credentials);
+  // If successful log them in
+  await login(credentials);
+});
+
+// "Login" button click handler
+addEventListener("#login", "click", async () => {
+  const user = getCredentials();
+
+  await login(user);
+});
+
+// "Logout" button click handler
+addEventListener("#logout", "click", async () => {
+  await client.logout();
+
+  document.getElementById("app").innerHTML = loginHTML;
+});
+
+// "Send" message form submission handler
+addEventListener("#send-message", "submit", async (ev) => {
+  // This is the message text input field
+  const input = document.querySelector('[name="text"]');
+
+  ev.preventDefault();
+
+  // Create a new message and then clear the input field
+  await client.service("messages").create({
+    text: input.value,
+  });
+
+  input.value = "";
+});
+
+// Listen to created events and add the new message in real-time
+client.service("messages").on("created", addMessage);
+
+// We will also see when new users get created in real-time
+client.service("users").on("created", addUser);
+
+// Call login right away so we can show the chat window
+// If the user can already be authenticated
+login();
+
 const main = async () => {
   const auth = await login();
 
