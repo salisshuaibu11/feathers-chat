@@ -202,6 +202,28 @@ const getCredentials = () => {
   return user;
 };
 
+// Log in either using the given email/password or the token from storage
+const login = async (credentials) => {
+  try {
+    if (!credentials) {
+      // Try to authenticate using an existing token
+      await client.reAuthenticate();
+    } else {
+      // Otherwise log in with the `local` strategy using the credentials
+      await client.authenticate({
+        strategy: "local",
+        ...credentials,
+      });
+    }
+
+    // If successful, show the chat page
+    showChat();
+  } catch (error) {
+    // If we got an error, show the login page
+    showLogin(error);
+  }
+};
+
 const main = async () => {
   const auth = await login();
 
